@@ -1,0 +1,43 @@
+<section class="about-section style-two">
+    <div class="top-rotten-curve"></div>
+    <div class="circle-one"></div>
+    <div class="circle-two"></div>
+    <div class="upper-boxes">
+        <div class="auto-container">
+            <div class="row clearfix">
+                {% for feature in self.features %}
+                <div class="about-feature-two col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box wow fadeInLeft" data-wow-delay="0ms">
+                        <div class="image-layer lazy-image" style="background-image: url('{{ feature.value.image.url }}');"></div>
+                        <div class="icon-box"><span class="{{ feature.value.icon }}"></span></div>
+                        <h4>{{ feature.value.title }}</h4>
+                        <div class="text">{{ feature.value.text }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="left-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner">
+                    <div class="sec-title">
+                        <div class="sub-title">About Us</div>
+                        <h2>{{ self.main_title }}</h2>
+                        <div class="text">{{ self.main_text|richtext }}</div>
+                        <div class="link-box clearfix"><a href="about.html" class="theme-btn btn-style-one"><span class="btn-title">Read More</span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner">
+                    <div class="images clearfix">
+                        <figure class="image wow fadeInUp" data-wow-delay="0ms"><img class="lazy-image" src="{{ self.main_image_1.url }}" alt=""></figure>
+                        <figure class="image wow fadeInDown" data-wow-delay="0ms"><img class="lazy-image" src="{{ self.main_image_2.url }}" alt=""></figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

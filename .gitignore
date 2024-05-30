@@ -1,0 +1,78 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environment
+.env
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+wagtailenv/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.swp
+*.sqlite3
+db.sqlite3
+/staticfiles
+/media
+
+# If you are using Docker
+*.db
+*.env
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Webpack
+static/dist/
+config/static/dist/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Wagtail specific
+*.page
+*.lock
+.site/

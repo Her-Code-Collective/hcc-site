@@ -1,0 +1,21 @@
+<section class="banner-section style-two">
+    <div class="banner-carousel love-carousel owl-theme owl-carousel"
+         data-options='{"loop": false, "margin": 0, "autoHeight":false, "singleItem" : true, "autoplay": true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "768" :{ "items" : "1" } , "1024":{ "items" : "1" }}}'>
+
+        {% for slide in self.slides %}
+            <div class="slide-item">
+                <div class="image-layer lazy-image" style="background-image: url('{{ slide.value.image.url }}');"></div>
+                <div class="auto-container">
+                    <div class="content-box">
+                        <h2>{{ slide.value.title|linebreaksbr }}</h2>
+                        <div class="text">{{ slide.value.text }}</div>
+                        {% if slide.value.button_text and slide.value.button_link %}
+                        <div class="btn-box"><a href="{{ slide.value.button_link }}" class="theme-btn btn-style-one"><span class="btn-title">{{ slide.value.button_text }}</span></a></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</section>
