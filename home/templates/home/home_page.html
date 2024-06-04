@@ -1,10 +1,314 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-<div>
-    {% for block in page.body %}
-        {% include_block block %}
+<!-- Banner Section -->
+<section class="banner-section style-two">
+    <div class="banner-carousel love-carousel owl-theme owl-carousel"  data-options='{"loop": false, "margin": 0, "autoHeight":false, "singleItem" : true, "autoplay": true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "768" :{ "items" : "1" } , "1024":{ "items" : "1" }}}'>
+        {% for banner in self.banner_section %}
+        {% image banner.value.background_image original as background_image %}
+        <div class="slide-item">
+            <div class="image-layer" style="background-image:url({{ background_image.url }});"></div>
+            <div class="auto-container">
+                <div class="content-box">
+                    <h2>{{ banner.value.title|linebreaksbr }}</h2>
+                    <div class="text">{{ banner.value.description }}</div>
+                    <div class="btn-box">
+                        <a href="{{ banner.value.button_link }}" class="theme-btn btn-style-one">
+                            <span class="btn-title">{{ banner.value.button_text }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- End Banner Section -->
+
+<!-- About Section -->
+<section class="about-section style-two">
+    <div class="top-rotten-curve"></div>
+    <div class="circle-one"></div>
+    <div class="circle-two"></div>
+    <div class="upper-boxes">
+        <div class="auto-container">
+            <div class="row clearfix">
+                {% for feature in self.about_section_feature %}
+                {% image feature.value.background_image original as background_image %}
+                <div class="about-feature-two col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box wow fadeInLeft" data-wow-delay="0ms">
+                        <div class="image-layer lazy-image" style="background-image: url('{{ background_image.url }}');"></div>
+                        <div class="icon-box"><span class="{{ feature.value.icon }}"></span></div>
+                        <h4>{{ feature.value.title }}</h4>
+                        <div class="text">{{ feature.value.description }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% for content in self.about_section_content %}
+    {% image content.value.image_1 original as image_1 %}
+    {% image content.value.image_2 original as image_2 %}
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="left-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner">
+                    <div class="sec-title">
+                        <div class="sub-title">{{ content.value.subtitle }}</div>
+                        <h2>{{ content.value.title }}</h2>
+                        <div class="text">{{ content.value.description }}</div>
+                        <div class="link-box clearfix"><a href="{{content.button_link}}" class="theme-btn btn-style-one"><span class="btn-title">{{ content.value.button_text }}</span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner">
+                    <div class="images clearfix">
+                        <figure class="image wow fadeInUp" data-wow-delay="0ms"><img class="lazy-image" src="{{ image_1.url }}" alt=""></figure>
+                        <figure class="image wow fadeInDown" data-wow-delay="0ms"><img class="lazy-image" src="{{ image_2.url }}" alt=""></figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</div>
+</section>
+<!-- End About Section -->
+
+
+<!-- How It Works Section -->
+<section class="how-it-works">
+    <div class="circle-one"></div>
+
+    <div class="auto-container">
+        <div class="sec-title centered">
+            <div class="sub-title">{{ self.how_it_works_subtitle }}</div>
+            <h2>{{ self.how_it_works_title }}</h2>
+            <div class="text">{{ self.how_it_works_description }}</div>
+        </div>
+
+        <div class="row clearfix">
+            {% for process in self.how_it_works_processes %}
+                <div class="process-block col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            {% image process.value.image original as process_image %}
+                            <figure class="image"><img class="lazy-image" src="{{ process_image.url }}" alt="{{ process.value.title }}"></figure>
+                        </div>
+                        <div class="lower-content">
+                            <h3><a href="{{ process.value.link_url }}">{{ process.value.title }}</a></h3>
+                            <div class="text">{{ process.value.description }}</div>
+                            <div class="link-box">
+                                <a href="{{ process.value.link_url }}" class="theme-btn btn-style-two">
+                                    <span class="btn-title">{{ process.value.link_text }}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- End How It Works Section -->
+
+
+<!-- What We Do Section / Style Two -->
+<section class="what-we-do style-two">
+    {% for block in self.what_we_do_section %}
+    {% if block.block_type == 'content' %}
+    {% image block.value.background_image original as background_image %}
+    <div class="image-layer lazy-image" data-bg="url('{{ background_image.url }}')"></div>
+    <div class="top-rotten-curve"></div>
+    <div class="bottom-rotten-curve"></div>
+    
+    <div class="auto-container">
+        <div class="row clearfix">
+                    <div class="title-column col-xl-6 col-lg-12 col-sm-12">
+                        <div class="inner">
+                            <div class="sec-title">
+                                <div class="sub-title">{{ block.value.subtitle }}</div>
+                                <h2>{{ block.value.title }}</h2>
+                                <div class="text">{{ block.value.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
+            <div class="content-column col-xl-6 col-lg-12 col-sm-12">        
+                <div class="row clearfix">
+                    {% for service in self.services %}
+                    {% if service.block_type == 'service' %}
+                        <div class="service-block col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <div class="inner-box">
+                                <div class="icon-box"><span class="{{ services.value.icon }}"></span></div>
+                                <h3>{{ service.value.title }}</h3>
+                                <div class="text">{{ service.value.description }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End What We Do Section -->
+
+<!-- Team Carousel Section -->
+<section class="team-carousel-section no-padding-top">
+    <div class="auto-container">
+        <div class="title-box clearfix">
+            <div class="sec-title">
+                {% for block in self.team_section %}
+                    {% if block.block_type == 'content' %}
+                        <div class="sub-title">{{ block.value.subtitle }}</div>
+                        <h2>{{ block.value.title }}</h2>
+                        <div class="text">{{ block.value.description }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Team Carousel -->
+        <div class="team-carousel love-carousel owl-theme owl-carousel" data-options='{
+            "loop": false, 
+            "margin": 30, 
+            "autoheight":true,
+            "lazyload":true,
+            "nav": true, 
+            "dots": true, 
+            "autoplay": true,
+            "autoplayTimeout": 5000,
+            "smartSpeed": 500,
+            "responsive":{ 
+                "0" :{ "items": "1" },
+                "600" :{ "items": "1" }, 
+                "800" :{ "items" : "2" }, 
+                "1024":{ "items" : "3" }, 
+                "1366":{ "items" : "3" }}}'>
+            {% for block in self.team_section %}
+                {% if block.block_type == 'team_members' %}
+                    {% for member in block.value %}
+                        <div class="slide-item">
+                            <div class="team-block">
+                                <div class="inner-box">
+                                    <figure class="image-box">
+                                        {% image member.image original as member_image %}
+                                        <a href="#"><img src="{{ member_image.url }}" alt="{{ member.name }}"></a>
+                                    </figure>
+                                    <div class="lower-box">
+                                        <div class="content">
+                                            <h3><a href="#">{{ member.name }}</a></h3>
+                                            <div class="designation">{{ member.designation }}</div>
+                                            <div class="social-links">
+                                                <ul class="clearfix">
+                                                    {% if member.facebook %}
+                                                    <li><a href="{{ member.facebook }}"><span class="fab fa-facebook-f"></span></a></li>
+                                                    {% endif %}
+                                                    {% if member.twitter %}
+                                                    <li><a href="{{ member.twitter }}"><span class="fab fa-twitter"></span></a></li>
+                                                    {% endif %}
+                                                    {% if member.linkedin %}
+                                                    <li><a href="{{ member.linkedin }}"><span class="fab fa-linkedin-in"></span></a></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <!-- End Team Carousel -->
+    </div>
+</section>
+<!-- End Team Carousel Section -->
+
+<!-- Call To Action Section -->
+<section class="call-to-action">
+    {% for action in self.call_to_action %}
+    {% image action.value.background_image original as background_image %}
+    <div class="image-layer" style="background-image:url({{ background_image.url }});"></div>
+    <div class="auto-container">
+        <div class="inner">
+            <div class="sec-title centered">
+                <h2>{{ action.value.title }}</h2>
+                <div class="text">{{ action.value.description }}</div>
+                <div class="link-box clearfix">
+                    <a href="{{ action.value.button_link }}" class="theme-btn btn-style-three">
+                        <span class="btn-title">{{ action.value.button_text }}</span>
+                    </a>
+                    <a href="{{ action.value.button_link }}" class="theme-btn btn-style-one">
+                        <span class="btn-title">Join Us Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+<!-- Upcoming Events Section -->
+<section class="upcoming-events">
+    <div class="circle-three"></div>
+    <div class="circle-four"></div>
+    <div class="auto-container">
+        {% for block in self.upcoming_events %}
+            {% if block.block_type == 'content' %}
+                <div class="sec-title centered">
+                    <div class="sub-title">{{ block.value.subtitle }}</div>
+                    <h2>{{ block.value.title }}</h2>
+                    <div class="text">{{ block.value.description }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="events-box wow fadeInUp" data-wow-delay="0ms">
+            <div class="row clearfix">
+                {% for block in self.upcoming_events %}
+                    {% if block.block_type == 'event' %}
+                        {% image block.value.image original as image %}
+                        <div class="event-block-two">
+                            <div class="inner-box">
+                                <div class="row clearfix">
+                                    <div class="title-column col-lg-6 col-md-12 col-sm-12">
+                                        <div class="inner">
+                                            <div class="image-box">
+                                                <a href="#"><img src="{{ image.url }}" alt=""></a>
+                                            </div>
+                                            <div class="title">
+                                                <h3><a href="event-single.html">{{ block.value.title }}</a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="info-column col-lg-6 col-md-12 col-sm-12">
+                                        <div class="inner">
+                                            <ul class="info clearfix">
+                                                <li><span class="icon far fa-clock"></span> {{ block.value.time }}</li>
+                                                <li><span class="icon fa fa-map-marker-alt"></span> {{ block.value.location }}</li>
+                                            </ul>
+                                            <div class="link-box">
+                                                <a href="{{ block.value.button_link }}" class="theme-btn btn-style-one">
+                                                    <span class="btn-title">{{ block.value.button_text }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Upcoming Events Section -->
+
 {% endblock %}
