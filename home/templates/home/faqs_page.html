@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <!-- Page Banner Section -->
+    <section class="page-banner">
+        {% image self.banner_image original as banner_image %}
+        <div class="image-layer lazy-image" data-bg="url('{{ banner_image.url }}')"></div>
+        <div class="bottom-rotten-curve"></div>
+
+        <div class="auto-container">
+            <h1>{{ self.title }}</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% pageurl home_page %}">Home</a></li>
+                <li class="active">{{ self.title }}</li>
+            </ul>
+        </div>
+    </section>
+    <!-- End Banner Section -->
+
+    <!-- FAQs Section -->
+    <section class="faq-section">
+        <div class="auto-container">
+            <div class="tabs-box">
+                <div class="row clearfix">
+
+                    <!-- Title Column -->
+                    <div class="title-column col-lg-6 col-md-12 col-sm-12">
+                        <div class="inner">
+                            <h2>{{ self.title }}</h2>
+                            <div class="text">{{ self.introduction }}</div>
+                            <ul class="tab-buttons">
+                                {% for section in self.faq_sections %}
+                                    <li class="tab-btn" data-tab="#tab-{{ forloop.counter0 }}">{{ section.value.section_title }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Content Column -->
+                    <div class="content-column col-lg-6 col-md-12 col-sm-12">
+                        <div class="inner">
+                            <div class="tabs-content">
+                                {% for section in self.faq_sections %}
+                                    <div class="tab {% if forloop.first %}active-tab{% endif %}" id="tab-{{ forloop.counter0 }}">
+                                        <ul class="accordion-box clearfix">
+                                            {% for faq in section.value.faqs %}
+                                                <li class="accordion block {% if forloop.first %}active-block{% endif %}">
+                                                    <div class="acc-btn {% if forloop.first %}active{% endif %}">Q. {{ faq.question }}</div>
+                                                    <div class="acc-content {% if forloop.first %}current{% endif %}">
+                                                        <div class="content">
+                                                            <div class="text">{{ faq.answer }}</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End FAQs Section -->
+{% endblock %}

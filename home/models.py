@@ -5,6 +5,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from django.db import models
 class AboutPage(Page):
@@ -74,6 +75,30 @@ class AboutPage(Page):
         verbose_name = "About Page"
         verbose_name_plural = "About Pages"
 
+
+class FAQPage(Page):
+    template = "home/faqs_page.html"
+
+    introduction = models.TextField(blank=True)
+    faq_sections = StreamField([
+        ('faq_section', blocks.StructBlock([
+            ('section_title', blocks.CharBlock(required=True)),
+            ('faqs', blocks.ListBlock(blocks.StructBlock([
+                ('question', blocks.CharBlock(required=True)),
+                ('answer', blocks.TextBlock(required=True)),
+            ])))
+        ]))
+    ], null=True, blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('introduction'),
+        FieldPanel('faq_sections'),
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['faq_sections'] = self.faq_sections
+        return context
 
 class HomePage(Page):
     template = "home/home_page.html"
