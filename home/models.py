@@ -80,6 +80,9 @@ class FAQPage(Page):
     template = "home/faqs_page.html"
 
     introduction = models.TextField(blank=True)
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.SET_NULL, null=True, blank=True, related_name='+'
+    )
     faq_sections = StreamField([
         ('faq_section', blocks.StructBlock([
             ('section_title', blocks.CharBlock(required=True)),
@@ -92,6 +95,7 @@ class FAQPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('introduction'),
+        FieldPanel('banner_image'),
         FieldPanel('faq_sections'),
     ]
 
